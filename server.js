@@ -29,7 +29,9 @@ io.sockets.on('connection', function (client) {
     client.on("message", function (msg) {
         console.log(msg);
         if(msg.type == "chat"){
+            store.set("lastchat",msg.user+" : "+ msg.message);
             pub.publish("chatting",msg.message);
+
         }
         else if(msg.type == "setUsername"){
             pub.publish("chatting","A new user in connected:" + msg.user);
